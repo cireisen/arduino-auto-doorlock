@@ -118,6 +118,11 @@ void keypadEvent(KeypadEvent key){
         {
           isPassword = true;
         }
+        else if(key == '3')
+        {
+          for(int i = 0 ;i<4; i++)
+            Serial.prinln(password[i]);
+        }
         break;
 
     case RELEASED:
