@@ -121,7 +121,7 @@ void keypadEvent(KeypadEvent key){
         else if(key == '3')
         {
           for(int i = 0 ;i<4; i++)
-            Serial.prinln(password[i]);
+            Serial.println(password[i]);
         }
         break;
 
