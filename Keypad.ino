@@ -1,4 +1,8 @@
 #include <Keypad.h>  
+#include <Stepper.h>
+
+const int stepsPerRevolution =2048;
+Stepper myStepper(stepsPerRevolution,13,11,12,10);
 const byte rows = 4;
 const byte cols = 4;
 char keys[rows][cols] = {
@@ -28,6 +32,7 @@ void setup() {
   digitalWrite(ledPin,HIGH);
   ledPin_state = digitalRead(ledPin);
   keypad.addEventListener(keypadEvent);
+  myStepper.setSpeed(14);
   
 }
 
@@ -123,6 +128,17 @@ void keypadEvent(KeypadEvent key){
           for(int i = 0 ;i<4; i++)
             Serial.println(password[i]);
         }
+        else if(key == '2')
+        {
+          myStepper.step(stepsPerRevolution);
+          delay(500);
+        }
+        else if(key == '1')
+        {
+          myStepper.step(-stepsPerRevolution);
+          delay(500);
+        }
+        
         break;
 
     case RELEASED:
@@ -158,5 +174,4 @@ void Passwordsetting(byte pass)
                }
             }
  }
-
 
