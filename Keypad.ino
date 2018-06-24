@@ -25,6 +25,7 @@ boolean ledPin_state;
 boolean isPassword=false;
 boolean therepassword=false;
 boolean Passwordright=true;
+int val;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -33,12 +34,26 @@ void setup() {
   ledPin_state = digitalRead(ledPin);
   keypad.addEventListener(keypadEvent);
   myStepper.setSpeed(14);
+  pinMode(A0,INPUT);
   
 }
 
 void loop() {
+  val = 0;
   // put your main code here, to run repeatedly:
   char key = keypad.getKey();
+  int val = digitalRead(A0);
+  if(passwordline==0)
+  {
+    if(val)
+    {
+      myStepper.step(-206);
+      delay(500);
+      myStepper.step(206);
+      delay(500);
+    }
+      
+  }
   if(key)
   {
     if(passwordline==4)
@@ -57,7 +72,13 @@ void loop() {
           Passwordright=false;
       }
       if(Passwordright)
+      {
         Serial.println("비밀번호가 맞습니다.");
+        myStepper.step(4096);
+        delay(500);
+        myStepper.step(-4096);
+        delay(500);
+      }
       else
         Serial.println("비밀번호가 다릅니다.");
         Passwordright=true;
